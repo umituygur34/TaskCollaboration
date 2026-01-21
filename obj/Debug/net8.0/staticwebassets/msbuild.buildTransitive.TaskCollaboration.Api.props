@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/TaskCollaboration.Api.props" />
+</Project>

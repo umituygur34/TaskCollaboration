@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "rC7jI6mYafeP+zxob4fCu1tg0vL+f5DjyG2g5hz0zGU=",
+  "Source": "TaskCollaboration.Api",
+  "BasePath": "_content/TaskCollaboration.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
