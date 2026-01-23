@@ -13,9 +13,9 @@ public class WorkTask{
 
     public WorkTaskPriority Priority{get; set;} = WorkTaskPriority.Low;// "Low", "Medium", "High"
 
-    public DateTime DueDate{get; set;} = DateTime.Now; // Bitiş tarihi
+    public DateTime DueDate{get; set;} = DateTime.UtcNow; // Bitiş tarihi
 
-    public DateTime CreatedAt{get; set;} = DateTime.Now;// Oluşturma tarihi
+    public DateTime CreatedAt{get; set;} = DateTime.UtcNow;// Oluşturma tarihi
 
     public int UserId{get; set;} //Foreign Key - Bu Task Kime ait?
 

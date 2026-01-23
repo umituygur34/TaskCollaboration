@@ -1,4 +1,5 @@
 /Users/umit/Desktop/TaskCollaboration.Api/bin/Debug/net8.0/appsettings.Development.json
+/Users/umit/Desktop/TaskCollaboration.Api/bin/Debug/net8.0/appsettings.Example.json
 /Users/umit/Desktop/TaskCollaboration.Api/bin/Debug/net8.0/appsettings.json
 /Users/umit/Desktop/TaskCollaboration.Api/bin/Debug/net8.0/TaskCollaboration.Api
 /Users/umit/Desktop/TaskCollaboration.Api/bin/Debug/net8.0/TaskCollaboration.Api.deps.json
@@ -97,6 +98,7 @@
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/TaskCollaboration.Api.csproj.CoreCompileInputs.cache
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/TaskCollaboration.Api.MvcApplicationPartsAssemblyInfo.cs
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/TaskCollaboration.Api.MvcApplicationPartsAssemblyInfo.cache
+/Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/TaskCollaboration.Api.sourcelink.json
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/staticwebassets.build.json
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/staticwebassets.development.json
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/staticwebassets/msbuild.TaskCollaboration.Api.Microsoft.AspNetCore.StaticWebAssets.props
@@ -111,3 +113,4 @@
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/TaskCollaboration.Api.pdb
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/TaskCollaboration.Api.genruntimeconfig.cache
 /Users/umit/Desktop/TaskCollaboration.Api/obj/Debug/net8.0/ref/TaskCollaboration.Api.dll
+/Users/umit/Desktop/TaskCollaboration.Api/bin/Debug/net8.0/BCrypt.Net-Next.dll
