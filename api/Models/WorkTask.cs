@@ -5,6 +5,7 @@ namespace TaskCollaboration.Api.api.Models;
 public class WorkTask{
 
     public int Id {get; set;}
+    
     public string Title{get;  set;} = string.Empty; //Görev başlığı
 
     public string Description{get; set;} = string.Empty; //Detaylı açıklama
