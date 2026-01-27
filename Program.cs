@@ -7,7 +7,8 @@ using TaskCollaboration.Api.api.Data;
 using TaskCollaboration.Api.api.Interfaces;
 using TaskCollaboration.Api.api.Services;
 using TaskCollaboration.Api.Settings;
-
+using Microsoft.OpenApi.Models;
+using TaskCollaboration.Api.api.Middleware;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,13 +38,43 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(options =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "TaskCollaboration API", Version = "v1" });
+    // 1. Kapıdaki "Kilit" sembolünü ve kutucuğu aktifleştirir
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Token giriniz. Örnek: Bearer {token}"
+    });
+
+    // 2. Kilidi tüm endpoint'lere uygular
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
-builder.Services.AddControllers();
 
 
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
+builder.Services.AddAuthorization();
 
 //DbContext Configuration Eklendi
 builder.Services.AddDbContext<TaskCollaborationDbContext>(options =>
@@ -52,6 +83,7 @@ builder.Services.AddDbContext<TaskCollaborationDbContext>(options =>
 });
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IWorkTaskService, WorkTaskService>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();
@@ -62,7 +94,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+/*Middleware sırası çok önemlidir. 
+Hata yakalayıcıyı en başa (veya en başa yakın) koyarız ki,
+ kendisinden sonra gelen tüm işlemleri
+(Authentication, Authorization, Controllers)
+ sarmalasın ve oralarda bir hata olursa yakalayabilsin.*/
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

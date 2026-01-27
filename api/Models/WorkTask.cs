@@ -2,29 +2,30 @@ using TaskCollaboration.Api.api.Models.Enums;
 
 namespace TaskCollaboration.Api.api.Models;
 
-public class WorkTask{
+public class WorkTask
+{
 
-    public int Id {get; set;}
-    public string Title{get;  set;} = string.Empty; //Görev başlığı
+    public int Id { get; set; }
 
-    public string Description{get; set;} = string.Empty; //Detaylı açıklama
+    public string Title { get; set; } = string.Empty; //Görev başlığı
 
-    public WorkTaskStatus Status{get; set;} = WorkTaskStatus.Todo;// "Todo", "Inprogress","Done"
+    public string Description { get; set; } = string.Empty; //Detaylı açıklama
 
-    public WorkTaskPriority Priority{get; set;} = WorkTaskPriority.Low;// "Low", "Medium", "High"
+    public WorkTaskStatus Status { get; set; } = WorkTaskStatus.Todo;// "Todo", "Inprogress","Done"
 
-    public DateTime DueDate{get; set;} = DateTime.UtcNow; // Bitiş tarihi
+    public WorkTaskPriority Priority { get; set; } = WorkTaskPriority.Low;// "Low", "Medium", "High"
 
-    public DateTime CreatedAt{get; set;} = DateTime.UtcNow;// Oluşturma tarihi
+    public DateTime DueDate { get; set; } = DateTime.UtcNow; // Bitiş tarihi
 
-    public int UserId{get; set;} //Foreign Key - Bu Task Kime ait?
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;// Oluşturma tarihi
 
-    public User? User{get; set;}  // Navigation Property - Bu Task Kime ait?
+    public int UserId { get; set; } //Foreign Key - Bu Task Kime ait?
+
+    public User? User { get; set; }  // Navigation Property - Bu Task Kime ait?
 
     //1 Task => Many Comments
-    public ICollection<Comment> Comments{get; set;} = new List<Comment>();
-       
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
 
-    
+
 }
