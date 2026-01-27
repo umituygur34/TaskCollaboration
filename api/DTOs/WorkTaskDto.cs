@@ -12,8 +12,8 @@ namespace TaskCollaboration.Api.api.DTOs
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty; //Görev başlığı
         public string Description { get; set; } = string.Empty; //Detaylı açıklama
-        public string WorkTaskStatus { get; set; } = string.Empty; // "Todo", "Inprogress","Done"
-        public string WorkTaskPriority { get; set; } = string.Empty;
+        public WorkTaskStatus Status { get; set; }
+        public WorkTaskPriority Priority { get; set; }
         public DateTime DueDate { get; set; } = DateTime.UtcNow;
 
 

@@ -34,20 +34,7 @@ namespace TaskCollaboration.Api.api.Services
             return workTask.ToDto();
         }
 
-        public async Task<bool> DeleteTaskAsync(int id, int userId)
-        {
-            var existingTask = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
-            if (existingTask == null)
-            {
-                return false;
-
-            }
-            _context.Tasks.Remove(existingTask);
-            await _context.SaveChangesAsync();
-            return true;
-
-        }
 
         public async Task<List<WorkTaskDto>> GetAllTaskAsync(int userId)
         {
@@ -84,14 +71,28 @@ namespace TaskCollaboration.Api.api.Services
 
             workTask.Title = workTaskUpdateDto.Title;
             workTask.Description = workTaskUpdateDto.Description;
-            workTask.Status = Enum.Parse<WorkTaskStatus>(workTaskUpdateDto.Status);
-            workTask.Priority = Enum.Parse<WorkTaskPriority>(workTaskUpdateDto.Priority);
+            workTask.Status = workTaskUpdateDto.Status;
+            workTask.Priority = workTaskUpdateDto.Priority;
             workTask.DueDate = workTaskUpdateDto.DueDate;
 
             await _context.SaveChangesAsync();
 
             return workTask.ToDto();
 
+
+        }
+        public async Task<bool> DeleteTaskAsync(int id, int userId)
+        {
+            var existingTask = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
+
+            if (existingTask == null)
+            {
+                return false;
+
+            }
+            _context.Tasks.Remove(existingTask);
+            await _context.SaveChangesAsync();
+            return true;
 
         }
     }

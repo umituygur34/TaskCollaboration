@@ -16,9 +16,8 @@ public static class WorkTaskMapper
             Title = workTaskCreateDto.Title,
             Description = workTaskCreateDto.Description,
             UserId = userId,
-            Status = Enum.Parse<WorkTaskStatus>(workTaskCreateDto.Status),
-
-            Priority = Enum.Parse<WorkTaskPriority>(workTaskCreateDto.Priority)
+            Status = workTaskCreateDto.Status,
+            Priority = workTaskCreateDto.Priority,
 
         };
     }
@@ -34,8 +33,8 @@ public static class WorkTaskMapper
             Title = workTask.Title,
             Description = workTask.Description,
 
-            WorkTaskStatus = workTask.Status.ToString(),
-            WorkTaskPriority = workTask.Priority.ToString(),
+            Status = workTask.Status,
+            Priority = workTask.Priority,
             DueDate = workTask.DueDate,
 
         };

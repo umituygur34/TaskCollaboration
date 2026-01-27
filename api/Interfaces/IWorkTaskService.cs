@@ -13,8 +13,5 @@ namespace TaskCollaboration.Api.api.Interfaces
         Task<WorkTaskDto> CreateTaskAsync(WorkTaskCreateDto workTaskCreateDto, int userId);
         Task<WorkTaskDto> UpdateTaskAsync(int id, WorkTaskCreateDto workTaskUpdateDto, int userId);
         Task<bool> DeleteTaskAsync(int id, int userId);
-
-
-
     }
 }
