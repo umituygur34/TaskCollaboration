@@ -1,2 +1,6 @@
 appsettings.json
 appsettings.Development.json
+
+# Binaries
+[Bb]in/
+[Oo]bj/
