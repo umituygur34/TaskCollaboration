@@ -91,14 +91,14 @@ namespace TaskCollaboration.Api.Migrations
                     Content = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false),
-                    TaskId = table.Column<int>(type: "integer", nullable: false)
+                    WorkTaskId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Tasks_TaskId",
-                        column: x => x.TaskId,
+                        name: "FK_Comments_Tasks_WorkTaskId",
+                        column: x => x.WorkTaskId,
                         principalTable: "Tasks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -121,14 +121,14 @@ namespace TaskCollaboration.Api.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_TaskId",
-                table: "Comments",
-                column: "TaskId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",
                 table: "Comments",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_WorkTaskId",
+                table: "Comments",
+                column: "WorkTaskId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_UserId",

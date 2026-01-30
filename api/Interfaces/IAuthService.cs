@@ -1,18 +1,18 @@
-
-using TaskCollaboration.Api.api.DTOs;
-using TaskCollaboration.Api.api.Models;
-
+using TaskCollaboration.Api.DTOs;
+using TaskCollaboration.Api.Models;
 
 
-namespace TaskCollaboration.Api.api.Interfaces;
 
-public interface IAuthService{
-    
-    public Task<UserDto> RegisterAsync (RegisterDto registerDto);
-    public Task<UserDto> LoginAsync (LoginDto loginDto);
+namespace TaskCollaboration.Api.Interfaces;
+
+public interface IAuthService
+{
+
+    public Task<UserDto> RegisterAsync(RegisterDto registerDto);
+    public Task<UserDto> LoginAsync(LoginDto loginDto);
 
     //girdi user çıktı jwt token 
-    public string GenerateJwtToken (User user);
+    public string GenerateJwtToken(User user);
 
-    
+
 }

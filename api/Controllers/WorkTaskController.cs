@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TaskCollaboration.Api.api.Interfaces;
-using TaskCollaboration.Api.api.DTOs;
-using TaskCollaboration.Api.api.Middleware;
+using TaskCollaboration.Api.Interfaces;
+using TaskCollaboration.Api.DTOs;
+using TaskCollaboration.Api.DTOs.WorkTaskDto;
+using TaskCollaboration.Api.Middleware;
 
 
-namespace TaskCollaboration.Api.api.Controllers;
+namespace TaskCollaboration.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -13,7 +14,7 @@ namespace TaskCollaboration.Api.api.Controllers;
 
 public class WorkTaskController : ControllerBase
 {
-    
+
     private readonly IWorkTaskService _workTaskService;
 
     public WorkTaskController(IWorkTaskService workTaskService)
@@ -25,7 +26,7 @@ public class WorkTaskController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> GetAllTasks()
-    {   
+    {
 
         var tasks = await _workTaskService.GetAllTaskAsync(UserId);
         if (tasks == null || tasks.Count == 0)
@@ -36,41 +37,43 @@ public class WorkTaskController : ControllerBase
 
     }
     [HttpPost]
-    public async Task<IActionResult> CreateTask([FromBody] WorkTaskCreateDto workTaskCreatedDto)
+    public async Task<IActionResult> CreateTask([FromBody] CreateWorkTaskDto createWorkTaskDto)
     {
-        var createdTask = await _workTaskService.CreateTaskAsync(workTaskCreatedDto, UserId);
+        var createdTask = await _workTaskService.CreateTaskAsync(createWorkTaskDto, UserId);
         return Ok(createdTask);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> GetTaskById(int id)
     {
-        var task = await _workTaskService.GetTaskByIdAsync(id,UserId);
-    if ( task == null){
-        return NotFound("Task not found");
+        var task = await _workTaskService.GetTaskByIdAsync(id, UserId);
+        if (task == null)
+        {
+            return NotFound("Task not found");
+        }
+        return Ok(task);
     }
-    return Ok(task);
-    }
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateTask(int id, [FromBody] WorkTaskCreateDto workTaskUpdateDto)
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> UpdateTask(int id, [FromBody] UpdateWorkTaskDto updateWorkTaskDto)
     {
-        var updateTask = await _workTaskService.UpdateTaskAsync(id ,workTaskUpdateDto,UserId);
+        var updateTask = await _workTaskService.UpdateTaskAsync(id, updateWorkTaskDto, UserId);
         if (updateTask == null)
         {
             return NotFound("Task not found");
         }
         return Ok(updateTask);
     }
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteTask(int id){
-        var deleteTask = await _workTaskService.DeleteTaskAsync(id,UserId);
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteTask(int id)
+    {
+        var deleteTask = await _workTaskService.DeleteTaskAsync(id, UserId);
         if (!deleteTask)
         {
             return NotFound("Task not found");
         }
         return Ok("Task deleted successfully");
     }
-    
 
 
-    }
+
+}

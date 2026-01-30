@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TaskCollaboration.Api.api.Data;
-using TaskCollaboration.Api.api.DTOs;
-using TaskCollaboration.Api.api.Interfaces;
-using TaskCollaboration.Api.api.Mappers;
-using TaskCollaboration.Api.api.Models.Enums;
+using TaskCollaboration.Api.Data;
+using TaskCollaboration.Api.DTOs.WorkTaskDto;
+using TaskCollaboration.Api.Mappers;
+using TaskCollaboration.Api.Interfaces;
+using TaskCollaboration.Api.Exceptions;
 
-namespace TaskCollaboration.Api.api.Services
+
+
+
+
+namespace TaskCollaboration.Api.Services
 {
     public class WorkTaskService : IWorkTaskService
     {
@@ -22,10 +21,12 @@ namespace TaskCollaboration.Api.api.Services
             _context = context;
         }
 
-        public async Task<WorkTaskDto> CreateTaskAsync(WorkTaskCreateDto workTaskCreateDto, int userId)
+        public async Task<WorkTaskDto> CreateTaskAsync(CreateWorkTaskDto createWorkTaskDto, int userId)
         {
 
-            var workTask = workTaskCreateDto.ToModel(userId);
+            var workTask = createWorkTaskDto.ToModel();
+
+            workTask.UserId = userId;
 
             _context.Tasks.Add(workTask);
 
@@ -59,22 +60,22 @@ namespace TaskCollaboration.Api.api.Services
 
         }
 
-        public async Task<WorkTaskDto> UpdateTaskAsync(int id, WorkTaskCreateDto workTaskUpdateDto, int userId)
+        public async Task<WorkTaskDto> UpdateTaskAsync(int id, UpdateWorkTaskDto updateWorkTaskDto, int userId)
         {
 
             var workTask = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
+
             if (workTask == null)
             {
-                return null;
+                //Sadece task Not found dedik - yukarıda user kontrolü de yaptık düzenlenecek.
+
+                throw new NotFoundException("Task not found");
+
             }
 
-            workTask.Title = workTaskUpdateDto.Title;
-            workTask.Description = workTaskUpdateDto.Description;
-            workTask.Status = workTaskUpdateDto.Status;
-            workTask.Priority = workTaskUpdateDto.Priority;
-            workTask.DueDate = workTaskUpdateDto.DueDate;
 
+            workTask = workTask.UpdateToModel(updateWorkTaskDto);
             await _context.SaveChangesAsync();
 
             return workTask.ToDto();

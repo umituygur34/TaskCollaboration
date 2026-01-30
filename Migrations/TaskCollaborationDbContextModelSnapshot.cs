@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TaskCollaboration.Api.api.Data;
+using TaskCollaboration.Api.Data;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace TaskCollaboration.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.ActivityLog", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.ActivityLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace TaskCollaboration.Api.Migrations
                     b.ToTable("ActivityLogs");
                 });
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.Comment", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,22 +71,22 @@ namespace TaskCollaboration.Api.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("TaskId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("WorkTaskId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TaskId");
-
                     b.HasIndex("UserId");
+
+                    b.HasIndex("WorkTaskId");
 
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.User", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -118,7 +118,7 @@ namespace TaskCollaboration.Api.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.WorkTask", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.WorkTask", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -156,13 +156,13 @@ namespace TaskCollaboration.Api.Migrations
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.ActivityLog", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.ActivityLog", b =>
                 {
-                    b.HasOne("TaskCollaboration.Api.api.Models.WorkTask", "Task")
+                    b.HasOne("TaskCollaboration.Api.Models.WorkTask", "Task")
                         .WithMany()
                         .HasForeignKey("TaskId");
 
-                    b.HasOne("TaskCollaboration.Api.api.Models.User", "User")
+                    b.HasOne("TaskCollaboration.Api.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -173,17 +173,17 @@ namespace TaskCollaboration.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.Comment", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.Comment", b =>
                 {
-                    b.HasOne("TaskCollaboration.Api.api.Models.WorkTask", "Task")
+                    b.HasOne("TaskCollaboration.Api.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TaskCollaboration.Api.Models.WorkTask", "Task")
                         .WithMany("Comments")
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TaskCollaboration.Api.api.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("WorkTaskId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -192,9 +192,9 @@ namespace TaskCollaboration.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.WorkTask", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.WorkTask", b =>
                 {
-                    b.HasOne("TaskCollaboration.Api.api.Models.User", "User")
+                    b.HasOne("TaskCollaboration.Api.Models.User", "User")
                         .WithMany("Tasks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -203,12 +203,12 @@ namespace TaskCollaboration.Api.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.User", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.User", b =>
                 {
                     b.Navigation("Tasks");
                 });
 
-            modelBuilder.Entity("TaskCollaboration.Api.api.Models.WorkTask", b =>
+            modelBuilder.Entity("TaskCollaboration.Api.Models.WorkTask", b =>
                 {
                     b.Navigation("Comments");
                 });

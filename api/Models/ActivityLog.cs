@@ -1,11 +1,11 @@
-namespace TaskCollaboration.Api.api.Models
+namespace TaskCollaboration.Api.Models
 {
     public class ActivityLog
     {
         public int Id { get; set; }
 
         //"Add", "Update", "Delete"
-        public string Action {get; set; } = string.Empty;
+        public string Action { get; set; } = string.Empty;
 
         //Detaylı açıklama
         public string Description { get; set; } = string.Empty;
@@ -20,6 +20,6 @@ namespace TaskCollaboration.Api.api.Models
         //Hangi Task'ta yapıldı ?
         public int? TaskId { get; set; }
         public WorkTask? Task { get; set; }
-        
+
     }
 }

@@ -1,4 +1,11 @@
 {
-  "editor.formatOnSave": true
-  
+  "editor.formatOnSave": true,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.enableEditorConfigSupport": true,
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp",
+    "editor.formatOnSave": true
+  },
+  "dotnet.inlayHints.enableInlayHintsForParameters": true,
+  "csharp.inlayHints.enableInlayHintsForTypes": true
 }

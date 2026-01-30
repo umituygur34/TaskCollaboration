@@ -1,16 +1,11 @@
+using TaskCollaboration.Api.DTOs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using TaskCollaboration.Api.api.DTOs;
-using System;
+using TaskCollaboration.Api.Exceptions;
+using System.Net;
 
 
 
-namespace TaskCollaboration.Api.api.Middleware
+namespace TaskCollaboration.Api.Middleware
 {
     public class ExceptionMiddleware
     {
@@ -55,34 +50,52 @@ namespace TaskCollaboration.Api.api.Middleware
 
         private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-
-            // Burada ApiException DTO'sunu kullanarak 
-            // JSON formatında bir cevap döneceksin.
-
             context.Response.ContentType = "application/json";
 
-            //Global hatalar 500 olur genelde.
-            context.Response.StatusCode = 500;
+            var statusCode = (int)HttpStatusCode.InternalServerError; // Varsayılan 500
+
+            var message = _env.IsDevelopment() ? exception.Message : "Internal Server Error";
+
+            string? stackTrace = _env.IsDevelopment() ? exception.StackTrace : null;
+
+            switch (exception)
+            {
+                case NotFoundException notFoundException:
+                    statusCode = (int)HttpStatusCode.NotFound; // 404
+                    message = notFoundException.Message;
+                    break;
+                case ConflictException conflictException:
+                    statusCode = (int)HttpStatusCode.Conflict; // 409
+                    message = conflictException.Message;
+                    break;
+                // Diğer özel exception'lar buraya eklenebilir
+                default:
+                    break;
+            }
+
+            context.Response.StatusCode = statusCode;
 
             var response = new ApiException
             {
-                StatusCode = context.Response.StatusCode,
-                //Message = "Internal Server Error" yerine; eğer geliştirme modundaysan (_env.IsDevelopment()) gerçek hatayı (exception.Message) görmek daha faydalı olur.
-                Message = _env.IsDevelopment() ? exception.Message : "Internal Server Error",
-                StackTrace = _env.IsDevelopment() ? exception.StackTrace : null
-
-
+                StatusCode = statusCode,
+                Message = message,
+                StackTrace = stackTrace
             };
 
             var json = System.Text.Json.JsonSerializer.Serialize(response);
-
             await context.Response.WriteAsync(json);
-
-
         }
 
+        // ...existing code...erine; eğer geliştirme modundaysan (_env.IsDevelopment()) gerçek hatayı (exception.Message) görmek daha faydalı olur.
+
+
+    };
 
 
 
-    }
 }
+
+
+
+
+

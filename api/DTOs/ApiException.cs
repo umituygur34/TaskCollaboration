@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TaskCollaboration.Api.api.DTOs
+namespace TaskCollaboration.Api.DTOs
 {
     public class ApiException
     {

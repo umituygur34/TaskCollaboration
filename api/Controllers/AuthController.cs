@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using TaskCollaboration.Api.api.DTOs;
-using TaskCollaboration.Api.api.Interfaces;
-using TaskCollaboration.Api.api.Models;
+using TaskCollaboration.Api.DTOs;
+using TaskCollaboration.Api.Interfaces;
+using TaskCollaboration.Api.Models;
 using System.Threading.Tasks;
 
 
 
-namespace TaskCollaboration.Api.api.Controllers;
+namespace TaskCollaboration.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

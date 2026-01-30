@@ -1,14 +1,15 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using TaskCollaboration.Api.api.Data;
-using TaskCollaboration.Api.api.Interfaces;
-using TaskCollaboration.Api.api.Services;
+using TaskCollaboration.Api.Data;
+using TaskCollaboration.Api.Interfaces;
+using TaskCollaboration.Api.Services;
 using TaskCollaboration.Api.Settings;
 using Microsoft.OpenApi.Models;
-using TaskCollaboration.Api.api.Middleware;
+using TaskCollaboration.Api.Middleware;
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -84,6 +85,7 @@ builder.Services.AddDbContext<TaskCollaborationDbContext>(options =>
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IWorkTaskService, WorkTaskService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();

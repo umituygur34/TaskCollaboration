@@ -1,6 +1,6 @@
 using System;
 
-namespace TaskCollaboration.Api.api.Models
+namespace TaskCollaboration.Api.Models
 {
     public class Comment
     {
@@ -13,7 +13,7 @@ namespace TaskCollaboration.Api.api.Models
         public User? User { get; set; }
 
         //Hangi Task'ta yapıldı ?
-        public int TaskId { get; set; }
+        public int WorkTaskId { get; set; }
         public WorkTask? Task { get; set; }
     }
 }

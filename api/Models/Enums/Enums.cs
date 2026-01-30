@@ -1,4 +1,4 @@
-namespace TaskCollaboration.Api.api.Models.Enums
+namespace TaskCollaboration.Api.Models.Enums
 {
     public enum WorkTaskStatus
     {

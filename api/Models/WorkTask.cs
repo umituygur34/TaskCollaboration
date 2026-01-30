@@ -1,6 +1,6 @@
-using TaskCollaboration.Api.api.Models.Enums;
+using TaskCollaboration.Api.Models.Enums;
 
-namespace TaskCollaboration.Api.api.Models;
+namespace TaskCollaboration.Api.Models;
 
 public class WorkTask
 {

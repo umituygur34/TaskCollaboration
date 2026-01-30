@@ -1,24 +1,22 @@
+using TaskCollaboration.Api.DTOs.WorkTaskDto;
+using TaskCollaboration.Api.Models;
 
-using TaskCollaboration.Api.api.Models;
-using TaskCollaboration.Api.api.Models.Enums;
-using TaskCollaboration.Api.api.DTOs;
 
-namespace TaskCollaboration.Api.api.Mappers;
+namespace TaskCollaboration.Api.Mappers;
 
 public static class WorkTaskMapper
 {
     //Dto -> Model (veritabanına kaydederken)
-    public static WorkTask ToModel(this WorkTaskCreateDto workTaskCreateDto, int userId)
+    public static WorkTask ToModel(this CreateWorkTaskDto createWorkTaskDto)
     {
         return new WorkTask
         {
 
-            Title = workTaskCreateDto.Title,
-            Description = workTaskCreateDto.Description,
-            UserId = userId,
-            Status = workTaskCreateDto.Status,
-            Priority = workTaskCreateDto.Priority,
+            Title = createWorkTaskDto.Title,
+            Description = createWorkTaskDto.Description,
 
+            Status = createWorkTaskDto.Status,
+            Priority = createWorkTaskDto.Priority,
         };
     }
 
@@ -38,6 +36,21 @@ public static class WorkTaskMapper
             DueDate = workTask.DueDate,
 
         };
+    }
+    //update
+    public static WorkTask UpdateToModel(this WorkTask workTask, UpdateWorkTaskDto updateWorkTaskDto)
+    {
+        return new WorkTask
+        {
+            Title = updateWorkTaskDto.Title,
+            Description = updateWorkTaskDto.Description,
+            Status = updateWorkTaskDto.Status,
+            Priority = updateWorkTaskDto.Priority,
+            DueDate = updateWorkTaskDto.DueDate,
+
+        };
+
+
     }
 
 
