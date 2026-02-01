@@ -2,7 +2,7 @@
 namespace TaskCollaboration.Api.DTOs
 {
 
-    //Giriş yaparken dönülecek veriler
+    //Giriş yaparken 
     public class UserDto
     {
         public int Id { get; set; }
@@ -14,7 +14,7 @@ namespace TaskCollaboration.Api.DTOs
 
     }
 
-    //Kayıt olurken istenen veriler
+    //Kayıt olurken istenenler
     public class RegisterDto
     {
         public string Name { get; set; } = string.Empty;
@@ -22,7 +22,7 @@ namespace TaskCollaboration.Api.DTOs
         public string Password { get; set; } = string.Empty;
     }
 
-    //Giriş yaparken istenen veri
+    //Giriş yaparken istenenler
     public class LoginDto
     {
         public string Email { get; set; } = string.Empty;

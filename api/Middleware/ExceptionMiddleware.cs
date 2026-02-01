@@ -2,6 +2,7 @@ using TaskCollaboration.Api.DTOs;
 using System;
 using TaskCollaboration.Api.Exceptions;
 using System.Net;
+using TaskCollaboration.Api.Exceptions.Base;
 
 
 
@@ -75,7 +76,7 @@ namespace TaskCollaboration.Api.Middleware
 
             context.Response.StatusCode = statusCode;
 
-            var response = new ApiException
+            var response = new ApiErrorResponse
             {
                 StatusCode = statusCode,
                 Message = message,

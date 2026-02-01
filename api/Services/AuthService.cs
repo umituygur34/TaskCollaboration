@@ -1,5 +1,4 @@
-using System;
-using System.Threading.Tasks;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using TaskCollaboration.Api.Data;
@@ -70,7 +69,7 @@ public class AuthService : IAuthService
         //db'deki Hash'in "salt"ını al, loginDto.password'dan gelen şifreyi bu salt ile tekrar hashle ve karşılaştır.
         if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password))
         {
-            return null;
+            throw new UnauthorizedAccessException("Invalid password");
         }
 
 

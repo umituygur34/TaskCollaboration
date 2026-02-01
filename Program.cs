@@ -8,6 +8,9 @@ using TaskCollaboration.Api.Services;
 using TaskCollaboration.Api.Settings;
 using Microsoft.OpenApi.Models;
 using TaskCollaboration.Api.Middleware;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+
 
 
 
@@ -75,6 +78,13 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
     });
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly)
+
+.AddFluentValidationAutoValidation();
+
+
+
+
 builder.Services.AddAuthorization();
 
 //DbContext Configuration Eklendi
@@ -86,6 +96,7 @@ builder.Services.AddDbContext<TaskCollaborationDbContext>(options =>
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IWorkTaskService, WorkTaskService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
+
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();
