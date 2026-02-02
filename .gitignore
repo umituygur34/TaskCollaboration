@@ -1,10 +1,10 @@
 appsettings.json
 appsettings.Development.json
-<<<<<<< HEAD
+
 
 # Binaries
 [Bb]in/
 [Oo]bj/
-=======
-.vscode/
->>>>>>> 080c38faedbbbbfa22f2021764f9f4785ab7388f
+.github/copilot-instructions.md
+
+

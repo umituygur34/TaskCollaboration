@@ -68,7 +68,8 @@ namespace TaskCollaboration.Api.Services
 
             if (workTask == null)
             {
-                //Sadece task Not found dedik - yukarıda user kontrolü de yaptık düzenlenecek.
+                //Sadece task Not found dedik - 
+                // yukarıda user kontrolü de yaptık düzenlenecek.
 
                 throw new NotFoundException("Task not found");
 
@@ -76,6 +77,7 @@ namespace TaskCollaboration.Api.Services
 
 
             workTask = workTask.UpdateToModel(updateWorkTaskDto);
+
             await _context.SaveChangesAsync();
 
             return workTask.ToDto();

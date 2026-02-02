@@ -37,19 +37,17 @@ public static class WorkTaskMapper
 
         };
     }
+
     //update
     public static WorkTask UpdateToModel(this WorkTask workTask, UpdateWorkTaskDto updateWorkTaskDto)
     {
-        return new WorkTask
-        {
-            Title = updateWorkTaskDto.Title,
-            Description = updateWorkTaskDto.Description,
-            Status = updateWorkTaskDto.Status,
-            Priority = updateWorkTaskDto.Priority,
-            DueDate = updateWorkTaskDto.DueDate,
+        workTask.Title = updateWorkTaskDto.Title;
+        workTask.Description = updateWorkTaskDto.Description;
+        workTask.Status = updateWorkTaskDto.Status;
+        workTask.Priority = updateWorkTaskDto.Priority;
+        workTask.DueDate = updateWorkTaskDto.DueDate;
 
-        };
-
+        return workTask;
 
     }
 
